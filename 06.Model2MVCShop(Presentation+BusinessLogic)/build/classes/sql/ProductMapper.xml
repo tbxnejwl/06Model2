@@ -98,7 +98,7 @@
 	</select>
 	
 	<!-- SELECT ROW Count -->
-	<select id="getTotalCount" parameterType="map" resultType="int">
+	<select id="getTotalCount" parameterType="search" resultType="int">
 		SELECT COUNT(*)
 		FROM ( SELECT p.*, nvl(t.tran_status_code, 1)
 			   FROM transaction t, product p

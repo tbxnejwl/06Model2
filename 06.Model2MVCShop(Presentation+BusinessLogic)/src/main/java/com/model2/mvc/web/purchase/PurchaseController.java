@@ -111,6 +111,29 @@ public class PurchaseController {
 		return "forward:/purchase/getPurchase.jsp";
 	}
 	
+	@RequestMapping("/deletePurchaseView.do")
+	public String deletePurchaseView( @RequestParam("tranNo") int tranNo , Model model, HttpSession session ) throws Exception{
+
+		System.out.println("/deletePurchaseView.do");
+		//Business Logic
+		
+		Purchase purchase = purchaseService.getPurchase(tranNo);
+		model.addAttribute("purchase", purchase);
+		
+		// Model °ú View ¿¬°á
+
+		return "forward:/purchase/deletePurchaseView.jsp";
+	}
+	
+	@RequestMapping("/deletePurchase.do")
+	public String deletePurchase (@RequestParam("tranNo") int tranNo, Model model) throws Exception{
+		System.out.println("/deletePurchase.do");
+		
+		purchaseService.deletePurchase(tranNo);
+		
+		return "forward:/purchase/deletePurchase.jsp";
+	}
+	
 	@RequestMapping("/updatePurchaseView.do")
 	public String updatePurchaseView( @RequestParam("tranNo") int tranNo , Model model ) throws Exception{
 
@@ -168,63 +191,5 @@ public class PurchaseController {
 		return modelAndView;
 	}
 	
-	/*@RequestMapping("/updateTranCode.do")
-	public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo,
-			@RequestParam("tranCode") String tranCode, HttpSession session) throws Exception{
-		
-		int tranCodeu = Integer.parseInt(tranCode.trim());
-		System.out.println("/purchase/updateTranCodeByProd : GET");
-		
-		String role = "";
-		User user = (User)session.getAttribute("user");
-		
-		if(user != null) {
-			role = user.getRole();	
-		}
-		Purchase purchase = null;
-		ModelAndView modelAndView = new ModelAndView();
-		
-		if(role.equals("admin")) {
-			modelAndView.setViewName("/listProduct.do?menu=manage");
-			purchase = purchaseService.getPurchase2(prodNo);			
-		} 
-		System.out.println(tranCodeu);
-		tranCodeu++;
-		System.out.println(tranCodeu);
-		
-		purchase.setTranCode(String.valueOf(tranCodeu));
-		purchaseService.updateTranCode(purchase);
-	
-		return modelAndView;
-	}
-		
-	@RequestMapping("/updateTranCode.do")
-	public ModelAndView updateTranCodeByProd(@RequestParam("prodNo") int prodNo, @RequestParam("tranNo") int tranNo,
-			@RequestParam("tranCode") String tranCode, HttpSession session) throws Exception{
-		
-		int tranCodeu = Integer.parseInt(tranCode.trim());
-		System.out.println("/purchase/updateTranCodeByProd : GET");
-		
-		String role = "";
-		User user = (User)session.getAttribute("user");
-		
-		if(user != null) {
-			role = user.getRole();	
-		}
-		Purchase purchase = null;
-		ModelAndView modelAndView = new ModelAndView();
-		
-		if(role.equals("user")) {
-			modelAndView.setViewName("/listPurchase.do");
-			purchase = purchaseService.getPurchase(tranNo);
-		}
-		System.out.println(tranCodeu);
-		tranCodeu++;
-		System.out.println(tranCodeu);
-		
-		purchase.setTranCode(String.valueOf(tranCodeu));
-		purchaseService.updateTranCode(purchase);
-	
-		return modelAndView;
-	}*/
+
 }

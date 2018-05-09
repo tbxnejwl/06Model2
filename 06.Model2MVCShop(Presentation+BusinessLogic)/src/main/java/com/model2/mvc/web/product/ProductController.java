@@ -99,11 +99,11 @@ public class ProductController {
 		System.out.println("/listProduct.do");
 		System.out.println(search.getCurrentPage()+" : currentpage");
 		
-		if(search.getCurrentPage() ==0 ){
+		if(search.getCurrentPage() == 0){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-		
+		System.out.println(search.getCurrentPage()+" : currentpage");
 		// Business logic ผ๖วเ
 		Map<String , Object> map=productService.getProductList(search,orderby);
 		
